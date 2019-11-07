@@ -1,10 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import  style from './App.less';
+import {Button} from 'antd'; 
 
 function App() {
   return (
-    <div className="App">
+    <div className={style.App}>
+      <Button>antd </Button>
+      <div className="yellow">我是黄色的div</div>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
