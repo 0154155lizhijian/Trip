@@ -3,7 +3,6 @@ import styles from './index.less';
 
 export default function() {
   return (
-    <div className={styles.wrapper}>
-    </div>
+    <h3>主页</h3>
   );
 }
