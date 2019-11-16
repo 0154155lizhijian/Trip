@@ -1,34 +1,43 @@
 import React from 'react';
 import styles from './index.less';
+import { Divider } from 'antd';
+import NavLink from 'umi/navlink';
 
-export default function Header() {
+const Header: React.FC = props => {
   const headerList = new Array(
-    {name:'首页',path:'/'},
-    {name:'目的地',path:'/'},
-    {name:'旅游攻略',path:'/'},
-    {name:'去旅行',path:'/'},
-    {name:'机票',path:'/'},
-    {name:'订酒店',path:'/'},
-    {name:'社区',path:'/'},
-  )
+    { name: '首页', path: '/', key: 'home' },
+    { name: '目的地', path: '/', key: 'place' },
+    { name: '旅游攻略', path: '/', key: 'strategy' },
+    { name: '去旅行', path: '/', key: 'goTrip' },
+    { name: '机票', path: '/', key: 'plane' },
+    { name: '订酒店', path: '/', key: 'hotel' },
+    { name: '社区', path: '/', key: 'community' },
+  );
 
-  console.log(headerList);
-
-  interface headerObject{
+  interface headerObject {
     name: string;
-    path: string; 
-  };
+    path: string;
+    key: string;
+  }
 
   return (
     <div className={styles.header}>
-      <div className="logo">
-        logo
-      </div>
+      <div className="logo" />
       <ul className="header-lists">
         {headerList.map((item: headerObject) => (
-          <li>{item.name}</li>
+          <li key={item.key}>{item.name}</li>
         ))}
       </ul>
+      <div className="login">
+        <NavLink to="/login/" className="log">
+          登录
+        </NavLink>
+        <Divider type="vertical" style={{ height: '16px' }} />
+        <NavLink to="./register/" className="log">
+          注册
+        </NavLink>
+      </div>
     </div>
   );
-}
+};
+export default Header;

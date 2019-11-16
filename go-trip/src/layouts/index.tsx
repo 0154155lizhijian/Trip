@@ -6,7 +6,9 @@ const BasicLayout: React.FC = props => {
   return (
     <div className={styles.gbWrapper}>
       <Header />
-      {props.children}
+      <div className='main'>
+        {props.children}
+      </div>
     </div>
   );
 };

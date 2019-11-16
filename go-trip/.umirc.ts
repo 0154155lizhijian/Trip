@@ -32,6 +32,10 @@ const config: IConfig =  {
       },
     }],
   ],
+  theme: {
+    'primary-color': '#FF9D00',
+    // 'primary-color': 'red',
+  },
 }
 
 export default config;
