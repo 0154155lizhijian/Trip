@@ -13,6 +13,8 @@
     "dva": "^2.6.0-beta.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "sweetalert2": "^9.3.11",
+    "sweetalert2-react-content": "^2.0.2",
     "universal-cookie": "^4.0.2"
   },
   "devDependencies": {

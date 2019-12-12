@@ -1,8 +1,8 @@
 /**
  * request.js 通用请求
- * @date 2019/08/06
- * @author peng.yang05@hand-china.com
- * @copyright Copyright (c) 2019, Hand
+ * @date 2019/11/18
+ * @author lizhijian
+ * @copyright Copyright (c) 2019, lizhijian
  */
 import {
   catchHttpError,
@@ -10,7 +10,7 @@ import {
   filterNullValueObject,
   generateUrlWithGetParam,
 } from '@/utils/utils';
-import swalAlert from 'components/swal';
+import swalAlert from '@/component/swal';
 
 export default function request(url, options = {}) {
   let newUrl = url;

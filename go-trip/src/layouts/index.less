@@ -1,6 +1,7 @@
 body{
   text-align: center;
   margin: 0 auto;
+  // position: relative;
 }
 .gbWrapper{
   margin: 0 auto;
@@ -11,6 +12,14 @@ body{
     .main{
       width: 100%;
       margin: 0 auto;
+      height: auto;
+      &:after{
+        content: '';
+        clear: both;
+        height: 0;
+        display: block;
+        overflow: hidden;
+      }
     }
   }
   

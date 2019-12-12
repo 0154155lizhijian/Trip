@@ -1,9 +1,13 @@
-import React from 'react';
+import React,{ useEffect, useState } from 'react';
 import styles from './index.less';
 import { Divider } from 'antd';
 import NavLink from 'umi/navlink';
 
+
 const Header: React.FC = props => {
+  const [activeBanner, setActiveBanner] = useState('');
+
+
   const headerList = new Array(
     { name: '首页', path: '/', key: 'home' },
     { name: '目的地', path: '/', key: 'place' },

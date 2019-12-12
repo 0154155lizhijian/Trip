@@ -1,6 +1,13 @@
+/**
+ * request.js 通用请求
+ * @date 2019/11/18
+ * @author lizhijian
+ * @copyright Copyright (c) 2019, lizhijian
+ */
+
 import Cookies from 'universal-cookie';
 import qs from 'qs';
-import swalAlert from 'components/swal';
+// import swalAlert from '@/component/swal';
 
 // import { logout } from 'services/api';
 
@@ -48,17 +55,14 @@ export function catchHttpError() {
         if (getAccessToken()) {
           // removeAllCookie();
           removeAccessToken();
-          swalAlert(
-            '登录已失效，请重新登录'
-          ).then(() => {
-            // logout();
-          });
-        } else {
-          const AUTH_URL = `${HmallConfig.apiGateway}/oauth/oauth/authorize?template=${HmallConfig.loginTemplate}&response_type=token&client_id=${HmallConfig.clientId}`;
-          window.location.href = `${AUTH_URL}`; // 401 需要在登录后返回401的页面
-        }
+          // swalAlert(
+          //   '登录已失效，请重新登录'
+          // ).then(() => {
+          //   // logout();
+          // });
+        } 
       } else {
-        swalAlert(`${res.status}_${res.statusText}`);
+        // swalAlert(`${res.status}_${res.statusText}`);
       }
     }
   };
