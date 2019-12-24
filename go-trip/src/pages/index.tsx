@@ -3,11 +3,10 @@ import styles from './index.less';
 import { Button, Input, Tabs, Icon } from 'antd';
 import request from '@/utils/request';
 
-
 const { Search } = Input;
 const { TabPane } = Tabs;
 
-const Index: React.FC = props => {
+const Index: React.FC = (props: any) => {
   const [imgList, setImgList] = useState([{ path: '' }]);
   const [activeImg, setactiveImg] = useState('');
   const [tourismColumnList, setTourismColumnList] = useState([
@@ -19,28 +18,28 @@ const Index: React.FC = props => {
 
   const operations = (
     <Button type="primary" size="large">
-      <Icon type="form"></Icon> 写游记
+      <Icon type="form" /> 写游记
     </Button>
   );
 
   useEffect(() => {
     // console.log(request);
-    const url = 'http://148.70.22.234:8886/point/list?page=1'
-    request(url).then((res: any)=>{
-      console.log(res);
-    })
-  }, [])
+    const url = 'http://148.70.22.234:8886/point/list?page=1';
+    request(url).then((res: any) => {
+      // console.log(res);
+    });
+  }, []);
 
   interface imgListObject {
     path: string;
   }
 
-  window.onresize = function(){
-    listenForClientWidth()
-  }
-  function listenForClientWidth(){
+  window.onresize = function() {
+    listenForClientWidth();
+  };
+  function listenForClientWidth() {
     const clientWidths = document.documentElement.clientWidth;
-    setclientWidth(clientWidths)
+    setclientWidth(clientWidths);
   }
 
   const imgLists: Array<imgListObject> = [
@@ -152,7 +151,7 @@ const Index: React.FC = props => {
     },
   ];
 
-  const TripListNode  = (props: tripList): React.ReactNode =>{
+  const TripListNode = (props: tripList): React.ReactNode => {
     return (
       // props.map(() => (
       <div className="trip-list" key={props.id}>
@@ -171,11 +170,48 @@ const Index: React.FC = props => {
             那会是一个什么样的地方？ 对于我来说， 会是一个在高处的广阔旷野。
             在天与地之间，世界是在天与地之间，世界是
           </div>
-          <div className="information"></div>
+          {/* <div className="information"></div> */}
         </div>
       </div>
       // ))
     );
+  };
+
+  const renderImgList = () : React.ReactNode=> {return (imgList.map(item => (
+    <li
+      key={item.path}
+      className={activeImg === item.path ? 'img-small active' : 'img-small'}
+      // tslint:disable-next-line:jsx-no-lambda
+      onClick={()=>changeImg(item.path)}
+    >
+      <img src={item.path} />
+    </li>
+  )))}
+
+  const renderTourismColumnListContnent = () : React.ReactNode => {
+    return(
+      tourismColumnList.map(item => (
+        <li key={item.title}>
+          <img src={item.imgPath} alt="" />
+          <div className="trip-introduce">
+            <div className="place">{item.title}</div>
+            <div className="content">{item.content}</div>
+          </div>
+        </li>
+      ))
+    )
+  }
+
+  const renderTourismColumnListIndex = () : React.ReactNode => {
+    return(
+      tourismColumnList.map((item, index) => (
+        <li
+          key={item.title}
+          onClick={() => changeOl(index)}
+          className={activeOlOne === index ? 'active' : ''}
+        />
+      ))
+    )
   }
 
   return (
@@ -185,113 +221,89 @@ const Index: React.FC = props => {
           <div className="img-big">
             <img src={activeImg} />
           </div>
-          <ul className="img-smalls" style={{ display:(clientWidth<1120?'none':'block')}}>
-            {imgList.map(item => (
-              <li key={item.path} className={activeImg === item.path ? 'img-small active' : 'img-small'} onClick={() => changeImg(item.path)}>
-                <img src={item.path} />
-              </li>
-            ))}
+          <ul className="img-smalls" style={{ display: clientWidth < 1120 ? 'none' : 'block' }}>
+            {renderImgList()}
           </ul>
           <div className="search">
             <Search
               placeholder="搜目的地/酒店/景点"
-              enterButton
+              enterButton={true}
               style={{ width: '538px', fontSize: '16px' }}
             />
           </div>
         </div>
         <div className="content-container">
           <div className="content-container-box">
-          <div className="recommend-wrap">
-            <a href="/" style={{ display: 'block', margin: '24px 0' }}>
-              <img
-                src="//images.mafengwo.net/images/safety-prevention/index-link.png"
-                width="218"
-                height="31"
-              />
-            </a>
-            <div className="Tourism-column">
-              <div className="column-title">
-                <span className="title-name">旅行家专栏</span>
-                <span className="more">专栏首页</span>
+            <div className="recommend-wrap">
+              <a href="/" style={{ display: 'block', margin: '24px 0' }}>
+                <img
+                  src="//images.mafengwo.net/images/safety-prevention/index-link.png"
+                  width="218"
+                  height="31"
+                />
+              </a>
+              <div className="Tourism-column">
+                <div className="column-title">
+                  <span className="title-name">旅行家专栏</span>
+                  <span className="more">专栏首页</span>
+                </div>
+                <div className="column-content">
+                  {/* <ul style={{left:`{${activeOlOne}}*260px`}}> */}
+                  <ul style={{ left: offsetLeftOne }}>
+                    {renderTourismColumnListContnent()}
+                  </ul>
+                  <ol className="content-ol">
+                    {renderTourismColumnListIndex()}
+                  </ol>
+                </div>
               </div>
-              <div className="column-content">
-                {/* <ul style={{left:`{${activeOlOne}}*260px`}}> */}
-                <ul style={{ left: offsetLeftOne }}>
-                  {tourismColumnList.map(item => (
-                    <li key={item.title}>
-                      <img src={item.imgPath} alt="" />
-                      <div className="trip-introduce">
-                        <div className="place">{item.title}</div>
-                        <div className="content">{item.content}</div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                <ol className="content-ol">
-                  {tourismColumnList.map((item, index) => (
-                    <li
-                      key={item.title}
-                      onClick={() => changeOl(index)}
-                      className={activeOlOne === index ? 'active' : ''}
-                    ></li>
-                  ))}
-                </ol>
+              <div className="Tourism-column" style={{ height: '230px' }}>
+                <div className="column-title">
+                  <span className="title-name">旅游攻略推荐</span>
+                  <span className="more">更多</span>
+                </div>
+                <div className="column-content" style={{ height: '185px' }}>
+                  <img
+                    src="https://n3-q.mafengwo.net/s12/M00/99/77/wKgED1xBjG6AOludAAL0f6tN5uk92.jpeg?imageMogr2%2Fthumbnail%2F%21260x139r%2Fgravity%2FCenter%2Fcrop%2F%21260x139%2Fquality%2F100"
+                    alt=""
+                  />
+                  <div className="slogan">日本交通=头疼？NO！史上超简单日本交通攻略~</div>
+                </div>
+              </div>
+              <div className="Tourism-column" style={{ height: '230px' }}>
+                <div className="column-title">
+                  <span className="title-name">未知旅行实验室</span>
+                  <span className="more">查看更多></span>
+                </div>
+                <div className="column-content" style={{ height: '185px' }}>
+                  <img
+                    src="http://images.mafengwo.net/images/new-index/unknownTravel181120.png"
+                    alt="未知旅行实验室"
+                  />
+                </div>
               </div>
             </div>
-            <div className="Tourism-column" style={{ height: '230px' }}>
-              <div className="column-title">
-                <span className="title-name">旅游攻略推荐</span>
-                <span className="more">更多</span>
-              </div>
-              <div className="column-content" style={{ height: '185px' }}>
+            <div className="trip-warp">
+              <div className="ads">
                 <img
-                  src="https://n3-q.mafengwo.net/s12/M00/99/77/wKgED1xBjG6AOludAAL0f6tN5uk92.jpeg?imageMogr2%2Fthumbnail%2F%21260x139r%2Fgravity%2FCenter%2Fcrop%2F%21260x139%2Fquality%2F100"
+                  src="https://b4-q.mafengwo.net/s15/M00/F0/13/CoUBGV3KllOAQDnFAADFh7_f1k8050.jpg"
                   alt=""
                 />
-                <div className="slogan">日本交通=头疼？NO！史上超简单日本交通攻略~</div>
               </div>
-            </div>
-            <div className="Tourism-column" style={{ height: '230px' }}>
-              <div className="column-title">
-                <span className="title-name">未知旅行实验室</span>
-                <span className="more">查看更多></span>
-              </div>
-              <div className="column-content" style={{ height: '185px' }}>
-                <img
-                  src="http://images.mafengwo.net/images/new-index/unknownTravel181120.png"
-                  alt="未知旅行实验室"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="trip-warp">
-            <div className="ads">
-              <img
-                src="https://b4-q.mafengwo.net/s15/M00/F0/13/CoUBGV3KllOAQDnFAADFh7_f1k8050.jpg"
-                alt=""
-              />
-            </div>
 
-            <Tabs tabBarExtraContent={operations} size="large">
-              <TabPane tab="热门游记" key="1">
-                <div className="trip-lists">
-                    {
-                      recommandTripList.map((item: tripList)=>(
-                        TripListNode(item)
-                      ))
-                    }
-                </div>
-              </TabPane>
-              <TabPane tab="最新发表" key="2">
-                <div className="trip-lists">
-                  {hotTripList.map((item: tripList)=>(
-                      TripListNode(item)
-                  ))}
-                </div>
-              </TabPane>
-            </Tabs>
-          </div>
+              <Tabs tabBarExtraContent={operations} size="large">
+                <TabPane tab="热门游记" key="1">
+                  <div className="trip-lists">
+                    {recommandTripList.map((item: tripList) => TripListNode(item))}
+                  </div>
+                </TabPane>
+                <TabPane tab="最新发表" key="2">
+                  <div className="trip-lists">
+                    {hotTripList.map((item: tripList) => TripListNode(item))}
+                  </div>
+                </TabPane>
+              </Tabs>
+            </div>
           </div>
         </div>
       </div>
