@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 const BasicLayout: React.FC = props => {
+
   return (
     <Fragment>
       <div className={styles.gbWrapper}>
