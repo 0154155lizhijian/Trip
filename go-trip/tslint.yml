@@ -72,3 +72,6 @@ rules:
   import/no-useless-path-segments: [0]
   curly: [2]
   react/no-this-in-sfc: [0]
+  jsx-no-multiline-js: false
+  no-trailing-whitespace: false
+  jsx-alignment: false
