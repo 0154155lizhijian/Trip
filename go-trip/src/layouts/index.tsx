@@ -5,6 +5,10 @@ import Footer from './Footer';
 
 const BasicLayout: React.FC = props => {
 
+  if (props.location.pathname === '/login/' || props.location.pathname === '/register/') {
+    return <div>{props.children}</div> 
+  }
+
   return (
     <Fragment>
       <div className={styles.gbWrapper}>
