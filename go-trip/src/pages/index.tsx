@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import styles from './index.less';
 import { Button, Input, Tabs, Icon } from 'antd';
 import request from '@/utils/request';
+import router from 'umi/router';
 
 const { Search } = Input;
 const { TabPane } = Tabs;
@@ -151,21 +152,25 @@ const Index: React.FC = (props: any) => {
     },
   ];
 
+  const linkToTravelListDeatil = (props: Number) : void => {
+    router.push(`/TravelListDetail?id=${props}`)
+  }
+
   const TripListNode = (props: tripList): React.ReactNode => {
     return (
       // props.map(() => (
       <div className="trip-list" key={props.id}>
-        <div className="img">
+        <div className="img" onClick={()=>linkToTravelListDeatil(props.id)}>
           <img
             src="http://n1-q.mafengwo.net/s15/M00/A5/80/CoUBGV26oUiAN44KAAGTa7X2x9Q584.jpg?imageMogr2%2Fthumbnail%2F%21220x150r%2Fstrip%2Fgravity%2FCenter%2Fcrop%2F%21220x150%2Fquality%2F90"
             alt=""
           />
         </div>
-        <div className="trip-list-content">
-          <div className="title">
+        <div className="trip-list-content" onClick={()=>linkToTravelListDeatil(props.id)}>
+          <div className="title" >
             挪威，无人不户外之三大奇石7天挑战（布道石不拥挤，奇迹石不排队，山妖之舌看日出日落）
           </div>
-          <div className="content">
+          <div className="content" onClick={()=>linkToTravelListDeatil(props.id)}>
             序 Du må nyte for å yte 会有这样一个地方，即使前往的过程艰难你也一直想回去吗？ 如果有，
             那会是一个什么样的地方？ 对于我来说， 会是一个在高处的广阔旷野。
             在天与地之间，世界是在天与地之间，世界是
